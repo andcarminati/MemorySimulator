@@ -1,3 +1,6 @@
+package simulator.allocators;
+import simulator.core.AbstractAllocator;
+import simulator.core.Chunk;
 
 public class FirstFit extends AbstractAllocator{
 
@@ -7,9 +10,9 @@ public class FirstFit extends AbstractAllocator{
 	}
 
 	@Override
-	Chunk findFreeChunk(int size) {
+	public Chunk findFreeChunk(int size) {
 		
-		Chunk chunk = initialChunk;
+		Chunk chunk = getInitialChunk();
 		while(chunk != null){
 			if(size < chunk.size() && chunk.isAvailable()){
 				return chunk;

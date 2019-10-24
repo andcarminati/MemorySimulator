@@ -1,3 +1,4 @@
+package simulator.gui;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -25,6 +26,13 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+
+import simulator.allocators.BestFit;
+import simulator.allocators.FirstFit;
+import simulator.allocators.NextFit;
+import simulator.allocators.WorstFit;
+import simulator.core.AbstractAllocator;
+import simulator.core.Chunk;
 
 
 
@@ -240,6 +248,10 @@ public class GUI implements ActionListener{
 			return new FirstFit(memory);
 		} else if (name.equals("Worst Fit")){
 			return new WorstFit(memory);
+		} else if (name.equals("Best Fit")){
+			return new BestFit(memory);
+		}else if (name.equals("Next Fit")){
+			return new NextFit(memory);
 		}
 		return null;
 	}
@@ -304,7 +316,7 @@ public class GUI implements ActionListener{
 							} catch (InterruptedException e) {							
 								e.printStackTrace();
 							}
-							updateGUI(alocador.initialChunk, 
+							updateGUI(alocador.getInitialChunk(), 
 									"Allocating memory for: " + aDemanda + " bytes" + "\n",
 									(List<Integer>)demanda, (List<Integer>)enderecos);
 						}
@@ -319,7 +331,7 @@ public class GUI implements ActionListener{
 								// TODO Bloco catch gerado automaticamente
 								e.printStackTrace();
 							}
-							updateGUI(alocador.initialChunk, 
+							updateGUI(alocador.getInitialChunk(), 
 									"Deallocating memory for address: " + oEndereco + "\n",
 									(List<Integer>)demanda, (List<Integer>)enderecos);
 						}

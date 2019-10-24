@@ -1,3 +1,4 @@
+package simulator.core;
 
 public class Chunk {
 

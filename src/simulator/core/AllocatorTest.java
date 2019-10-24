@@ -1,3 +1,5 @@
+package simulator.core;
+import simulator.allocators.FirstFit;
 
 public class AllocatorTest {
 

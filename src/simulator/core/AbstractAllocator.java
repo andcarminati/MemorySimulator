@@ -1,9 +1,10 @@
+package simulator.core;
 public abstract class AbstractAllocator {
 
-	protected Chunk initialChunk;
+	private Chunk initialChunk;
 
 	public AbstractAllocator(int size) {
-		initialChunk = new Chunk(0, size);
+		setInitialChunk(new Chunk(0, size));
 	}
 
 	public int allocate(int size) {
@@ -33,9 +34,9 @@ public abstract class AbstractAllocator {
 
 	}
 
-	protected Chunk findChunk(int inicio) {
+	public  Chunk findChunk(int inicio) {
 
-		Chunk bloco = initialChunk;
+		Chunk bloco = getInitialChunk();
 
 		while (bloco != null) {
 			if (bloco.getStart() == inicio) {
@@ -46,11 +47,11 @@ public abstract class AbstractAllocator {
 		return null;
 	}
 
-	abstract Chunk findFreeChunk(int size);
+	public abstract Chunk findFreeChunk(int size);
 	
 	public void dump(){
 		
-		Chunk chunk = initialChunk;
+		Chunk chunk = getInitialChunk();
 		
 		while(chunk != null){
 			String status = chunk.isAvailable() ? "(L)" : "(U)";
@@ -58,5 +59,13 @@ public abstract class AbstractAllocator {
 			chunk = chunk.getNext();
 		}
 		System.out.println("");
+	}
+
+	public Chunk getInitialChunk() {
+		return initialChunk;
+	}
+
+	public void setInitialChunk(Chunk initialChunk) {
+		this.initialChunk = initialChunk;
 	}
 }
